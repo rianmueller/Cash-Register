@@ -8,10 +8,37 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="register">
-        <input type="text" class="display" value="0000000000" disabled />
+    <div id="cashRegister">
+        <!-- <input type="text" class="display" value="0000000000" disabled /> -->
+        <div id="display" width=100% text-align="right">0</div>
         <div class="keys">
-            <button type="button" class="numpad 7" value="7">7</button>
+            <button id="seven">7</button>
+            <button id="eight">8</button>
+            <button id="nine">9</button>
+            <button id="divide">/</button>
+            <button id="clear">Clear</button>
+
+            <button id="four">4</button>
+            <button id="five">5</button>
+            <button id="six">6</button>
+            <button id="multiply">*</button>
+            <button id="balance">Balance</button>
+
+            <button id="one">1</button>
+            <button id="two">2</button>
+            <button id="three">3</button>
+            <button id="subtract">-</button>
+            <button id="deposit">Deposit</button>
+
+            <button id="zero">0</button>
+            <button id="doubleZero">00</button>
+            <button id="decimal">.</button>
+            <button id="add">+</button>
+            <button id="withdraw">Withdraw</button>
+
+            <button id="equals">=</button>
+
+            <!-- <button type="button" class="numpad 7" value="7">7</button>
             <button type="button" class="numpad 8" value="8">8</button>
             <button type="button" class="numpad 9" value="9">9</button>
             <button type="button" class="operators divide" value="/">&divide;</button>
@@ -35,10 +62,10 @@
             <button type="button" class="operators add" value="+">+</button>
             <button type="button" class="operators withdraw" value="withdraw">Withdraw</button>
 
-            <button type="button" class="operators equals" value="=">=</button>
+            <button type="button" class="operators equals" value="=">=</button> -->
         </div>
     </div>
     <script src="js/cash_register.js"></script>
-    <script src="js/calculator.js"></script>
+    <!-- <script src="js/calculator.js"></script> -->
 </body>
 </html>

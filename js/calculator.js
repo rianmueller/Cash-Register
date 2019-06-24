@@ -1,4 +1,6 @@
 let register = (function(){
+    let stored = 0;
+    let drawer = 0;
 
 /* Add
     - Clears the display but not the stored value, adds the displayed and stored values when the next operator is pressed
@@ -75,6 +77,7 @@ function equals(){
 */
 
 function clear(){
+    operator = 'clear';
     register = 0;
     return register;
 };
@@ -84,7 +87,9 @@ function clear(){
 */
 
 function balance(){
+    operator = 'balance';
     register = drawer;
+    return register;
 };
 
 /* Deposit
@@ -92,8 +97,10 @@ function balance(){
 */
 
 function deposit(){
+    operator = 'deposit';
     drawer = drawer + register;
     register = 0;
+    return register;
 };
 
 /* Withdraw
@@ -101,8 +108,10 @@ function deposit(){
 */
 
 function withdraw(){
+    operator = 'withdraw';
     drawer = stored - register;
     register = 0;
+    return register;
 };
 
 return {
