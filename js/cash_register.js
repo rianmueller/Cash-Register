@@ -21,98 +21,213 @@ document.querySelector('#deposit').addEventListener('click', deposit);
 document.querySelector('#withdraw').addEventListener('click', withdraw);
 
 //let display = (function(){
-    let register = 0;
-    let operator = 'input'
+    let register = '0';
+    let mode = '';
+
+    // if mode is not input (default state, +, -, *, /, =, Clear, Balance, Deposit, Withdraw was just pressed)
+    // OR if register is '0'
+    //    clear register
+    //    set mode to input
+    //    assign key value
+    //    update display
+    //
+    // if register is full
+    //    ignore key press
+    //
+    // otherwise
+    //    append key value to register
+    //    update display
 
     function one(){
-        if (operator !== 'input') {
-            register = 1;
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '1';
+            display.innerHTML = register;
+            return;
         } else if (register.length > 9) {
-            return null;
+            return;
         } else {
             register += '1';
+            display.innerHTML = register;
+            return;
         }
+    };
+
+    function two(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '2';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '2';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function three(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '3';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '3';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function four(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '4';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '4';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function five(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '5';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '5';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function six(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '6';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '6';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function seven(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '7';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '7';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function eight(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '8';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '8';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function nine(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '9';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '9';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function zero(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '0';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9) {
+            return;
+        } else {
+            register += '0';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    // if register is '0', do nothing
+    // if register is almost full, do nothing
+
+    function doubleZero(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '0';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 8) {
+            return;
+        } else {
+            register += '00';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    // if decimal exists in register, do nothing
+
+    function decimal(){
+        if (mode !== 'input' || register === '0') {
+            mode = 'input';
+            register = '0.';
+            display.innerHTML = register;
+            return;
+        } else if (register.length > 9 || register.includes('.')) {
+            return;
+        } else {
+            register += '.';
+            display.innerHTML = register;
+            return;
+        }
+    };
+
+    function clear(){
+        mode = '';
+        register = '0';
         display.innerHTML = register;
-    }
-
-    // if the last event was an operator, clear the register and assign value,
-    // if the last event was a numpad and register is full, ignore event
-//     // if the last event was a numpad and register is not full, append value to the end of the register,
-//     function one(){
-//         if (operator !== 'input') {
-//             register = 1;
-//         } else if (register.length > 9) {
-//             return null;
-//         } else {
-//             register += 1;
-//         }
-//         return register;
-//     }
-
-//     function two(){
-//         if (operator !== 'input') {
-//             register = 2;
-//         } else if (register.length > 9) {
-//             return null;
-//         } else {
-//             register += 2;
-//         }
-//         return register;
-//     }
-
-//     function three(){
-//         if (operator !== 'input') {
-//             register = 3;
-//         } else if (register.length > 9) {
-//             return null;
-//         } else {
-//             register += 3;
-//         }
-//         return register;
-//     }
-
-//     function four(){
-//         if (operator !== 'input') {
-//             register = 4;
-//         } else if (register.length > 9) {
-//             return null;
-//         } else {
-//             register += 4;
-//         }
-//         return register;
-//     }
-
-//     function five(){
-//         return ;
-//     }
-
-//     function six(){
-//         return ;
-//     }
-
-//     function seven(){
-//         return ;
-//     }
-
-//     function eight(){
-//         return ;
-//     }
-
-//     function nine(){
-//         return ;
-//     }
-
-//     function zero(){
-//         return ;
-//     }
-
-//     function doubleZero(){
-//         return ;
-//     }
-
-//     function decimal(){
-//         return ;
-//     }
+    };
 
 
 //     return {
