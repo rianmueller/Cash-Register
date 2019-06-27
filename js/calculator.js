@@ -15,32 +15,70 @@ document.querySelector('#clear').addEventListener('click', clear);
 let inputMode = false;
 let operator = '';
 let register = '0';
-let memory = 0;
+let memory = undefined;
 let drawer = 0;
+
+/*
+1   |   1   <-  Displays input (1)
+2   |  12   <-  Displays input (12)
+-   |  12   <-  Sets operator to subtract,
+                does not operate (because nothing in memory),
+                still displays input (12), 
+                copies input into memory
+7   |   7   <-  Displays input (7)
+-   |   5   <-  Sets operator to subtract,
+                operates on memory and input (12 - 7 = 5),
+                displays result (5),
+                copies result to memory
+3   |   3   <-  Displays input (3),
+-   |   2   <-  Sets operator to subtract,
+                operates on memory and input (5 - 3 = 2),
+                displays result (2),
+                copies result to memory
+
++ - * / =
+If operator is undefined (=):   Do not set operator,
+                                do not operate,
+                                copy INPUT into memory,
+                                display memory
+
+If memory is undefined: Set operator,
+                        do not operate,
+                        copy INPUT into memory,
+                        display memory
+
+If both are defined:    Set operator,
+                        operate on memory and input,
+                        copy RESULT to memory,
+                        display memory
+
+
+
+*/
 
 function calculator() {
 
-    // NO OPERATOR
-    if (operator === ''){
+    // NO OPERATOR OR NO MEMORY
+    if (operator === '' || memory === undefined) {
         memory = parseInt(register);
 
     // ADD
-    } else if (operator === 'add'){
+    } else if (operator === 'add') {
         memory = memory + parseInt(register);
         display.innerHTML = memory;
 
     // SUBTRACT
-    } else if (operator === 'subtract'){
+    } else if (operator === 'subtract') {
         memory = memory - parseInt(register);
         display.innerHTML = memory;
 
     // MULTIPLY
-    } else if (operator === 'multiply'){
+    } else if (operator === 'multiply') {
         memory = memory * parseInt(register);
         display.innerHTML = memory;
 
     // DIVIDE
-    } else if (operator === 'divide'){
+    } else if (operator === 'divide') {
 
         // DIVIDE BY ZERO
         if (parseInt(register) == 0) {
@@ -59,7 +97,7 @@ function clear(){
     inputMode = false;
     operator = '';
     register = '0';
-    memory = 0;
+    memory = undefined;
     display.innerHTML = register;
     return;
 };
