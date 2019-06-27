@@ -19,18 +19,39 @@ let memory = 0;
 let drawer = 0;
 
 function calculator() {
+
+    // NO OPERATOR
     if (operator === ''){
         memory = parseInt(register);
+
+    // ADD
     } else if (operator === 'add'){
         memory = memory + parseInt(register);
+        display.innerHTML = memory;
+
+    // SUBTRACT
     } else if (operator === 'subtract'){
         memory = memory - parseInt(register);
+        display.innerHTML = memory;
+
+    // MULTIPLY
     } else if (operator === 'multiply'){
         memory = memory * parseInt(register);
+        display.innerHTML = memory;
+
+    // DIVIDE
     } else if (operator === 'divide'){
+
+        // DIVIDE BY ZERO
+        if (parseInt(register) == 0) {
+            register = 'ERR DIV 0';
+            display.innerHTML = register;
+            return;
+        }
+
         memory = memory / parseInt(register);
+        display.innerHTML = memory;
     };
-    display.innerHTML = memory;
     return;
 };
 
@@ -40,14 +61,13 @@ function clear(){
     register = '0';
     memory = 0;
     display.innerHTML = register;
+    return;
 };
-
 
 function add() {
     inputMode = false;
     operator = 'add';
     calculator();
-    console.log(operator);
     return;
 };
 
@@ -55,7 +75,6 @@ function subtract() {
     inputMode = false;
     operator = 'subtract';
     calculator();
-    console.log(operator);
     return;
 };
 
@@ -63,7 +82,6 @@ function multiply() {
     inputMode = false;
     operator = 'multiply';
     calculator();
-    console.log(operator);
     return;
 };
 
@@ -71,14 +89,12 @@ function divide() {
     inputMode = false;
     operator = 'divide';
     calculator();
-    console.log(operator);
     return;
 };
 
 function equals() {
     inputMode = false;
     calculator();
-    console.log(operator);
     return;
 }
 

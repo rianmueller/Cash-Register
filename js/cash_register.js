@@ -14,204 +14,110 @@ document.querySelector('#decimal').addEventListener('click', decimal);
 // need to limit decimal places to 2
 
 //let display = (function(){
+let key = '';
 
-    // if mode is not input (default state, +, -, *, /, =, Clear, Balance, Deposit, Withdraw was just pressed)
-    // OR if register is '0'
-    //    clear register
-    //    set mode to input
-    //    assign key value
-    //    update display
-    //
-    // if register is full
-    //    ignore key press
-    //
-    // otherwise
-    //    append key value to register
-    //    update display
-
-    function one(){
+    function numPad(){
         if (inputMode === false || register === '0') {
             inputMode = true;
-            register = '1';
+            register = key;
             display.innerHTML = register;
             return;
         } else if (register.length > 9) {
             return;
         } else {
-            register += '1';
+            register += key;
             display.innerHTML = register;
             return;
         }
+    };
+
+    function one(){
+        key = '1';
+        numPad();
+        return;
     };
 
     function two(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '2';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '2';
-            display.innerHTML = register;
-            return;
-        }
+        key = '2';
+        numPad();
+        return;
     };
 
     function three(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '3';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '3';
-            display.innerHTML = register;
-            return;
-        }
+        key = '3';
+        numPad();
+        return;
     };
 
     function four(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '4';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '4';
-            display.innerHTML = register;
-            return;
-        }
+        key = '4';
+        numPad();
+        return;
     };
 
     function five(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '5';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '5';
-            display.innerHTML = register;
-            return;
-        }
+        key = '5';
+        numPad();
+        return;
     };
 
     function six(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '6';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '6';
-            display.innerHTML = register;
-            return;
-        }
+        key = '6';
+        numPad();
+        return;
     };
 
     function seven(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '7';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '7';
-            display.innerHTML = register;
-            return;
-        }
+        key = '7';
+        numPad();
+        return;
     };
 
     function eight(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '8';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '8';
-            display.innerHTML = register;
-            return;
-        }
+        key = '8';
+        numPad();
+        return;
     };
 
     function nine(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '9';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '9';
-            display.innerHTML = register;
-            return;
-        }
+        key = '9';
+        numPad();
+        return;
     };
 
     function zero(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '0';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += '0';
-            display.innerHTML = register;
-            return;
-        }
+        key = '0';
+        numPad();
+        return;
     };
 
+    // '00'
     // if register is '0', do nothing
     // if register is almost full, do nothing
 
     function doubleZero(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '0';
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 8) {
+        if (register === '0' || register.length > 8) {
             return;
         } else {
-            register += '00';
-            display.innerHTML = register;
-            return;
-        }
+            key = '00';
+        };
+        numPad();
+        return;
     };
 
+    // if register is '0', assign '0.'
     // if decimal exists in register, do nothing
 
     function decimal(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = '0.';
-            display.innerHTML = register;
+        if (register.includes('.')){
             return;
-        } else if (register.length > 9 || register.includes('.')) {
-            return;
+        } else if (register === '0') {
+            key = '0.';
         } else {
-            register += '.';
-            display.innerHTML = register;
-            return;
+            key = '.';
         }
+        numPad();
+        return;
     };
 
 //     return {
