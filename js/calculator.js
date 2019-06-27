@@ -36,21 +36,48 @@ let drawer = 0;
                 displays result (2),
                 copies result to memory
 
-+ - * / =
-If operator is undefined (=):   Do not set operator,
-                                do not operate,
-                                copy INPUT into memory,
-                                display memory
+2   <-  register = 2
+        memory = undefined
+        operator = ''
+        inputMode = true
+=   <-  register = 2
+        memory = 2
+        operator = ''
+        inputMode = false
+/   <-  register = 2 -> 1
+        memory = 2 -> 1
+        operator = divide
+        inputMode = false
 
-If memory is undefined: Set operator,
-                        do not operate,
-                        copy INPUT into memory,
-                        display memory
+2 / 3 
+2 = /
 
-If both are defined:    Set operator,
-                        operate on memory and input,
-                        copy RESULT to memory,
-                        display memory
+Should: 
+2   |   2   <-  Displays input (2)
+=   |   2   <-  Does not set operator (because equals),
+                does not operate (because no operator),
+                still displays input (2),
+                copies input into memory
+/   |   2   <-  Sets operator to divide,
+                does not operate (because why?),
+                displays input (2),
+                copy input to memory
+3   |   3   <-  Displays input (3)
+/   |   0.66666667 <-  Sets operator to divide,
+                operates on memory and input (2 / 3 = 0.66666667),
+                displays result (0.66666667),
+                copies result to memory
+
+Instead I get:
+2   |   2   <-  Displays input (2)
+=   |   2   <-  Does not set operator (because equals),
+                does not operate (because no operator),
+                still displays input (2),
+                copies input into memory
+/   |   1   <-  Sets operator to divide,
+                operates on memory and input (2 / 2 = 1), <- how do I prevent operation?
+                displays result (1),
+                copies result to memory
 
 
 
@@ -104,29 +131,29 @@ function clear(){
 
 function add() {
     inputMode = false;
-    operator = 'add';
     calculator();
+    operator = 'add';
     return;
 };
 
 function subtract() {
     inputMode = false;
-    operator = 'subtract';
     calculator();
+    operator = 'subtract';
     return;
 };
 
 function multiply() {
     inputMode = false;
-    operator = 'multiply';
     calculator();
+    operator = 'multiply';
     return;
 };
 
 function divide() {
     inputMode = false;
-    operator = 'divide';
     calculator();
+    operator = 'divide';
     return;
 };
 
