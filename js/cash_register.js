@@ -10,19 +10,10 @@ document.querySelector('#nine').addEventListener('click', nine);
 document.querySelector('#zero').addEventListener('click', zero);
 document.querySelector('#doubleZero').addEventListener('click', doubleZero);
 document.querySelector('#decimal').addEventListener('click', decimal);
-document.querySelector('#add').addEventListener('click', add);
-document.querySelector('#subtract').addEventListener('click', subtract);
-document.querySelector('#multiply').addEventListener('click', multiply);
-document.querySelector('#divide').addEventListener('click', divide);
-document.querySelector('#equals').addEventListener('click', equals);
-document.querySelector('#clear').addEventListener('click', clear);
-document.querySelector('#balance').addEventListener('click', balance);
-document.querySelector('#deposit').addEventListener('click', deposit);
-document.querySelector('#withdraw').addEventListener('click', withdraw);
+
+// need to limit decimal places to 2
 
 //let display = (function(){
-    let register = '0';
-    let mode = '';
 
     // if mode is not input (default state, +, -, *, /, =, Clear, Balance, Deposit, Withdraw was just pressed)
     // OR if register is '0'
@@ -39,8 +30,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     //    update display
 
     function one(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '1';
             display.innerHTML = register;
             return;
@@ -54,8 +45,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function two(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '2';
             display.innerHTML = register;
             return;
@@ -69,8 +60,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function three(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '3';
             display.innerHTML = register;
             return;
@@ -84,8 +75,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function four(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '4';
             display.innerHTML = register;
             return;
@@ -99,8 +90,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function five(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '5';
             display.innerHTML = register;
             return;
@@ -114,8 +105,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function six(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '6';
             display.innerHTML = register;
             return;
@@ -129,8 +120,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function seven(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '7';
             display.innerHTML = register;
             return;
@@ -144,8 +135,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function eight(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '8';
             display.innerHTML = register;
             return;
@@ -159,8 +150,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function nine(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '9';
             display.innerHTML = register;
             return;
@@ -174,8 +165,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     };
 
     function zero(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '0';
             display.innerHTML = register;
             return;
@@ -192,8 +183,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     // if register is almost full, do nothing
 
     function doubleZero(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '0';
             display.innerHTML = register;
             return;
@@ -209,8 +200,8 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
     // if decimal exists in register, do nothing
 
     function decimal(){
-        if (mode !== 'input' || register === '0') {
-            mode = 'input';
+        if (inputMode === false || register === '0') {
+            inputMode = true;
             register = '0.';
             display.innerHTML = register;
             return;
@@ -222,13 +213,6 @@ document.querySelector('#withdraw').addEventListener('click', withdraw);
             return;
         }
     };
-
-    function clear(){
-        mode = '';
-        register = '0';
-        display.innerHTML = register;
-    };
-
 
 //     return {
 //         one: one,
