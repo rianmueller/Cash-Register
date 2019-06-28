@@ -85,8 +85,15 @@ let key = '';
         return;
     };
 
+    // '0'
+    // if register is '0', do nothing
+
     function zero(){
-        key = '0';
+        if (register === '0') {
+            return;
+        } else {
+            key = '0';
+        };
         numPad();
         return;
     };
@@ -105,14 +112,15 @@ let key = '';
         return;
     };
 
-    // if register is '0', assign '0.'
+    // '.'
     // if decimal exists in register, do nothing
+    // if register is '0', assign '0.'
 
     function decimal(){
-        if (register.includes('.')){
-            return;
-        } else if (register === '0') {
+        if (inputMode === false) {
             key = '0.';
+        } else if (register.includes('.')){
+            return;
         } else {
             key = '.';
         }

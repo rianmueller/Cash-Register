@@ -18,72 +18,54 @@ let register = '0';
 let memory = undefined;
 let drawer = 0;
 
-/*
+/* When selecting an operator AFTER equals, it should change the operator but not operate with the previous operator
+
 1   |   1   <-  Displays input (1)
-2   |  12   <-  Displays input (12)
--   |  12   <-  Sets operator to subtract,
-                does not operate (because nothing in memory),
-                still displays input (12), 
-                copies input into memory
-7   |   7   <-  Displays input (7)
--   |   5   <-  Sets operator to subtract,
-                operates on memory and input (12 - 7 = 5),
-                displays result (5),
-                copies result to memory
-3   |   3   <-  Displays input (3),
--   |   2   <-  Sets operator to subtract,
-                operates on memory and input (5 - 3 = 2),
-                displays result (2),
-                copies result to memory
-
-2   <-  register = 2
-        memory = undefined
-        operator = ''
-        inputMode = true
-=   <-  register = 2
-        memory = 2
-        operator = ''
-        inputMode = false
-/   <-  register = 2 -> 1
-        memory = 2 -> 1
-        operator = divide
-        inputMode = false
-
-2 / 3 
-2 = /
-
-Should: 
++   |   1   <-  Does not operate (no operator)
+                Sets operator to add
+                Copies input into memory
+                Displays memory (1)
 2   |   2   <-  Displays input (2)
-=   |   2   <-  Does not set operator (because equals),
-                does not operate (because no operator),
-                still displays input (2),
-                copies input into memory
-/   |   2   <-  Sets operator to divide,
-                does not operate (because why?),
-                displays input (2),
-                copy input to memory
++   |   3   <-  Operates on memory and input due to preexisting add operator (1 + 2 = 3)
+                Sets operator to add
+                Copies result into memory
+                Displays memory (3)
 3   |   3   <-  Displays input (3)
-/   |   0.66666667 <-  Sets operator to divide,
-                operates on memory and input (2 / 3 = 0.66666667),
-                displays result (0.66666667),
-                copies result to memory
+=   |   6   <-  Operates on memory and input due to preexisting add operator (3 + 3 = 6)
+                Preserves operator (add)
+                Copies result into memory
+                Displays memory (6)
+=   |   9   <-  Operates on memory and input due to preexisting add operator (6 + 3 = 9)
+                Preserves operator (add)
+                Copies result into memory
+                Displays memory (9)
+/   |   9   <-  Operates on memory and input due to preexisting add operator (9 + 3 = 12)
+                Sets operator to divide
+                Copies result into memory
+                Displays memory (12)
+                
+                Should not operate
+                Should set operator to divide
+                Should preserve memory
+                Should preserve display (9)
 
-Instead I get:
-2   |   2   <-  Displays input (2)
-=   |   2   <-  Does not set operator (because equals),
-                does not operate (because no operator),
-                still displays input (2),
-                copies input into memory
-/   |   1   <-  Sets operator to divide,
-                operates on memory and input (2 / 2 = 1), <- how do I prevent operation?
-                displays result (1),
-                copies result to memory
+Expecteds:
+1 + 2 + 3 = = / -> 9   (should not get 12 but continue to display 9, with the operator set to divide)    
+1 + 2 + 3 + +   -> 9
+1 + 2 + 3 = +   -> 6   (primed with plus)    
+1 + 2 + 3 / 2 = -> 3
+2 = /           -> 2
+2 + 2 + 2 +     -> 6
 
-
+When I hit plus plus plus, the last inputted value should be added to the memory repeatedly
+When I hit plus equals equals, the last inputted value should be added to the memory repeatedly
+When I hit plus plus divide, the divide key should add and set the operator to divide
+When I hit plus equals divide, divide should not repeat the last inputted value but wait for a new value
 
 */
 
 function calculator() {
+    inputMode = false;
 
     // NO OPERATOR OR NO MEMORY
     if (operator === '' || memory === undefined) {
@@ -121,44 +103,77 @@ function calculator() {
 };
 
 function clear(){
+    key = 'clear';
     inputMode = false;
-    operator = '';
     register = '0';
     memory = undefined;
     display.innerHTML = register;
+    operator = '';
     return;
 };
 
 function add() {
-    inputMode = false;
+
+    // AFTER EQUALS
+    if (key === 'equals') {
+        key = 'add';
+        operator = key;
+        return;
+    }
+
+    key = 'add';
     calculator();
-    operator = 'add';
+    operator = key;
     return;
 };
 
 function subtract() {
-    inputMode = false;
+
+    // AFTER EQUALS
+    if (key === 'equals') {
+        key = 'subtract';
+        operator = key;
+        return;
+    }
+    
+    key = 'subtract';
     calculator();
-    operator = 'subtract';
+    operator = key;
     return;
 };
 
 function multiply() {
-    inputMode = false;
+
+    // AFTER EQUALS
+    if (key === 'equals') {
+        key = 'multiply';
+        operator = key;
+        return;
+    }
+
+    key = 'multiply';
     calculator();
-    operator = 'multiply';
+    operator = key;
     return;
 };
 
 function divide() {
-    inputMode = false;
+
+    // AFTER EQUALS
+    if (key === 'equals') {
+        key = 'divide';
+        operator = key;
+        return;
+    }
+
+    key = 'divide';
     calculator();
-    operator = 'divide';
+    operator = key;
     return;
 };
 
 function equals() {
-    inputMode = false;
+    key = 'equals';
     calculator();
     return;
 }
@@ -168,6 +183,7 @@ function equals() {
 */
 
 function balance(){
+    key = 'balance';
     inputMode = false;
     operator = '';
     register = drawer;
@@ -180,8 +196,9 @@ function balance(){
 */
 
 function deposit(){
+    key = 'deposit';
     inputMode = false;
-    operator = '';
+    operator = 'add';
     drawer = drawer + parseInt(register);
     register = '0';
     display.innerHTML = register;
@@ -193,8 +210,9 @@ function deposit(){
 */
 
 function withdraw(){
+    key = 'withdraw';
     inputMode = false;
-    operator = '';
+    operator = 'subtract';
     if (parseInt(register) > drawer) {
         register = 'NO CAN DO';
     } else {
