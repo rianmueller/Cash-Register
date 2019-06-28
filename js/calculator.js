@@ -11,6 +11,11 @@ document.querySelector('#clear').addEventListener('click', clear);
 // need to handle register overflow
 // need to shorten long decimals to 2 places
 // need to handle divide by zero, other errors
+// need to handle floating point errors
+
+// 3 . 3 + + + should produce '9.9', instead it produces '9.899999999999999'
+// two problems:
+
 
 let inputMode = false;
 let operator = '';
@@ -18,86 +23,40 @@ let register = '0';
 let memory = undefined;
 let drawer = 0;
 
-/* When selecting an operator AFTER equals, it should change the operator but not operate with the previous operator
-
-1   |   1   <-  Displays input (1)
-+   |   1   <-  Does not operate (no operator)
-                Sets operator to add
-                Copies input into memory
-                Displays memory (1)
-2   |   2   <-  Displays input (2)
-+   |   3   <-  Operates on memory and input due to preexisting add operator (1 + 2 = 3)
-                Sets operator to add
-                Copies result into memory
-                Displays memory (3)
-3   |   3   <-  Displays input (3)
-=   |   6   <-  Operates on memory and input due to preexisting add operator (3 + 3 = 6)
-                Preserves operator (add)
-                Copies result into memory
-                Displays memory (6)
-=   |   9   <-  Operates on memory and input due to preexisting add operator (6 + 3 = 9)
-                Preserves operator (add)
-                Copies result into memory
-                Displays memory (9)
-/   |   9   <-  Operates on memory and input due to preexisting add operator (9 + 3 = 12)
-                Sets operator to divide
-                Copies result into memory
-                Displays memory (12)
-                
-                Should not operate
-                Should set operator to divide
-                Should preserve memory
-                Should preserve display (9)
-
-Expecteds:
-1 + 2 + 3 = = / -> 9   (should not get 12 but continue to display 9, with the operator set to divide)    
-1 + 2 + 3 + +   -> 9
-1 + 2 + 3 = +   -> 6   (primed with plus)    
-1 + 2 + 3 / 2 = -> 3
-2 = /           -> 2
-2 + 2 + 2 +     -> 6
-
-When I hit plus plus plus, the last inputted value should be added to the memory repeatedly
-When I hit plus equals equals, the last inputted value should be added to the memory repeatedly
-When I hit plus plus divide, the divide key should add and set the operator to divide
-When I hit plus equals divide, divide should not repeat the last inputted value but wait for a new value
-
-*/
-
 function calculator() {
     inputMode = false;
 
     // NO OPERATOR OR NO MEMORY
     if (operator === '' || memory === undefined) {
-        memory = parseInt(register);
+        memory = parseFloat(register);
 
     // ADD
     } else if (operator === 'add') {
-        memory = memory + parseInt(register);
-        display.innerHTML = memory;
+        memory = memory + parseFloat(register);
+        display.innerHTML = Math.round(memory * 100) / 100;
 
     // SUBTRACT
     } else if (operator === 'subtract') {
-        memory = memory - parseInt(register);
-        display.innerHTML = memory;
+        memory = memory - parseFloat(register);
+        display.innerHTML = Math.round(memory * 100) / 100;
 
     // MULTIPLY
     } else if (operator === 'multiply') {
-        memory = memory * parseInt(register);
-        display.innerHTML = memory;
+        memory = memory * parseFloat(register);
+        display.innerHTML = Math.round(memory * 100) / 100;
 
     // DIVIDE
     } else if (operator === 'divide') {
 
         // DIVIDE BY ZERO
-        if (parseInt(register) == 0) {
+        if (parseFloat(register) == 0) {
             register = 'ERR DIV 0';
             display.innerHTML = register;
             return;
         }
 
-        memory = memory / parseInt(register);
-        display.innerHTML = memory;
+        memory = memory / parseFloat(register);
+        display.innerHTML = Math.round(memory * 100) / 100;
     };
     return;
 };
@@ -186,8 +145,8 @@ function balance(){
     key = 'balance';
     inputMode = false;
     operator = '';
-    register = drawer;
-    display.innerHTML = register;
+    memory = drawer;
+    display.innerHTML = Math.round(memory * 100) / 100;
     return;
 };
 
@@ -199,7 +158,7 @@ function deposit(){
     key = 'deposit';
     inputMode = false;
     operator = 'add';
-    drawer = drawer + parseInt(register);
+    drawer = drawer + parseFloat(register);
     register = '0';
     display.innerHTML = register;
     return;
@@ -213,10 +172,10 @@ function withdraw(){
     key = 'withdraw';
     inputMode = false;
     operator = 'subtract';
-    if (parseInt(register) > drawer) {
+    if (parseFloat(register) > drawer) {
         register = 'NO CAN DO';
     } else {
-        drawer = drawer - parseInt(register);
+        drawer = drawer - parseFloat(register);
         register = '0';
     }
     display.innerHTML = register;
