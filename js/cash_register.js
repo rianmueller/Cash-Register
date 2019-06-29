@@ -20,74 +20,57 @@ document.querySelector('#divide').addEventListener('click', divide);
 document.querySelector('#equals').addEventListener('click', equals);
 document.querySelector('#clear').addEventListener('click', clear);
 
-//let display = (function(){
-
-    function numPad(){
-        if (inputMode === false || register === '0') {
-            inputMode = true;
-            register = key;
-            display.innerHTML = register;
-            return;
-        } else if (register.length > 9) {
-            return;
-        } else {
-            register += key;
-            display.innerHTML = register;
-            return;
-        }
-    };
-
     function one(){
-        key = '1';
-        numPad();
+        foo.key = '1';
+        foo.numPad();
         return;
     };
 
     function two(){
-        key = '2';
-        numPad();
+        foo.key = '2';
+        foo.numPad();
         return;
     };
 
     function three(){
-        key = '3';
-        numPad();
+        foo.key = '3';
+        foo.numPad();
         return;
     };
 
     function four(){
-        key = '4';
-        numPad();
+        foo.key = '4';
+        foo.numPad();
         return;
     };
 
     function five(){
-        key = '5';
-        numPad();
+        foo.key = '5';
+        foo.numPad();
         return;
     };
 
     function six(){
-        key = '6';
-        numPad();
+        foo.key = '6';
+        foo.numPad();
         return;
     };
 
     function seven(){
-        key = '7';
-        numPad();
+        foo.key = '7';
+        foo.numPad();
         return;
     };
 
     function eight(){
-        key = '8';
-        numPad();
+        foo.key = '8';
+        foo.numPad();
         return;
     };
 
     function nine(){
-        key = '9';
-        numPad();
+        foo.key = '9';
+        foo.numPad();
         return;
     };
 
@@ -95,12 +78,12 @@ document.querySelector('#clear').addEventListener('click', clear);
     // if register is '0', do nothing
 
     function zero(){
-        if (register === '0') {
+        if (foo.register === '0') {
             return;
         } else {
-            key = '0';
+            foo.key = '0';
         };
-        numPad();
+        foo.numPad();
         return;
     };
 
@@ -109,12 +92,12 @@ document.querySelector('#clear').addEventListener('click', clear);
     // if register is almost full, do nothing
 
     function doubleZero(){
-        if (register === '0' || register.length > 8) {
+        if (foo.register === '0' || foo.register.length > 8) {
             return;
         } else {
-            key = '00';
+            foo.key = '00';
         };
-        numPad();
+        foo.numPad();
         return;
     };
 
@@ -123,148 +106,122 @@ document.querySelector('#clear').addEventListener('click', clear);
     // if register is '0', assign '0.'
 
     function decimal(){
-        if (inputMode === false) {
-            key = '0.';
-        } else if (register.includes('.')){
+        if (foo.inputMode === false) {
+            foo.key = '0.';
+        } else if (foo.register.includes('.')){
             return;
         } else {
-            key = '.';
+            foo.key = '.';
         }
-        numPad();
+        foo.numPad();
         return;
     };
 
     function balance(){
-        key = 'balance';
-        inputMode = false;
-        operator = '';
-        memory = drawer;
-        display.innerHTML = Math.round(memory * 100) / 100;
+        foo.key = 'balance';
+        foo.inputMode = false;
+        foo.operator = '';
+        foo.memory = foo.drawer;
+        display.innerHTML = Math.round(foo.memory * 100) / 100;
         return;
     };
 
     function deposit(){
-        key = 'deposit';
-        inputMode = false;
-        operator = '';
-        drawer = drawer + parseFloat(register);
-        register = '0';
-        display.innerHTML = register;
+        foo.key = 'deposit';
+        foo.inputMode = false;
+        foo.operator = '';
+        foo.drawer = foo.drawer + parseFloat(foo.register);
+        foo.register = '0';
+        display.innerHTML = foo.register;
         return;
     };
 
     function withdraw(){
-        key = 'withdraw';
-        inputMode = false;
-        operator = '';
-        if (parseFloat(register) > drawer) {
-            register = 'NO CAN DO';
+        foo.key = 'withdraw';
+        foo.inputMode = false;
+        foo.operator = '';
+        if (parseFloat(foo.register) > foo.drawer) {
+            foo.register = 'NO CAN DO';
         } else {
-            drawer = drawer - parseFloat(register);
-            register = '0';
+            foo.drawer = foo.drawer - parseFloat(foo.register);
+            foo.register = '0';
         }
-        display.innerHTML = register;
-        return;
-    };
-
-    function clear(){
-        key = 'clear';
-        inputMode = false;
-        register = '0';
-        memory = undefined;
-        display.innerHTML = register;
-        operator = '';
+        display.innerHTML = foo.register;
         return;
     };
     
     function add() {
     
         // AFTER EQUALS
-        if (key === 'equals') {
-            key = 'add';
-            operator = key;
+        if (foo.key === 'equals') {
+            foo.key = 'add';
+            foo.operator = foo.key;
             return;
         }
     
-        key = 'add';
-        calculator();
-        operator = key;
+        foo.key = 'add';
+        foo.calculator();
+        foo.operator = foo.key;
         return;
     };
 
     function subtract() {
 
         // AFTER EQUALS
-        if (key === 'equals') {
-            key = 'subtract';
-            operator = key;
+        if (foo.key === 'equals') {
+            foo.key = 'subtract';
+            foo.operator = foo.key;
             return;
         }
         
-        key = 'subtract';
-        calculator();
-        operator = key;
+        foo.key = 'subtract';
+        foo.calculator();
+        foo.operator = foo.key;
         return;
     };
     
     function multiply() {
     
         // AFTER EQUALS
-        if (key === 'equals') {
-            key = 'multiply';
-            operator = key;
+        if (foo.key === 'equals') {
+            foo.key = 'multiply';
+            foo.operator = foo.key;
             return;
         }
     
-        key = 'multiply';
-        calculator();
-        operator = key;
+        foo.key = 'multiply';
+        foo.calculator();
+        foo.operator = foo.key;
         return;
     };
 
     function divide() {
 
         // AFTER EQUALS
-        if (key === 'equals') {
-            key = 'divide';
-            operator = key;
+        if (foo.key === 'equals') {
+            foo.key = 'divide';
+            foo.operator = foo.key;
             return;
         }
     
-        key = 'divide';
-        calculator();
-        operator = key;
+        foo.key = 'divide';
+        foo.calculator();
+        foo.operator = foo.key;
         return;
     };
     
     function equals() {
-        key = 'equals';
-        calculator();
+        foo.key = 'equals';
+        foo.calculator();
         return;
-    }
+    };
 
-//     return {
-//         one: one,
-//         two: two,
-//         three: three,
-//         four: four,
-//         five: five,
-//         six: six,
-//         seven: seven,
-//         eight: eight,
-//         nine: nine,
-//         zero: zero,
-//         doubleZero: doubleZero,
-//         decimal: decimal,
-//         balance: balance,
-//         deposit: deposit,
-//         withdraw: withdraw,
-//         add: add,
-//         subtract: subtract,
-//         multiply: multiply,
-//         divide: divide,
-//         equals: equals,
-//         clear: clear
-//     }
-
-// })();
+    function clear(){
+        foo.key = 'clear';
+        foo.inputMode = false;
+        foo.register = '0';
+        foo.memory = undefined;
+        display.innerHTML = foo.register;
+        foo.operator = '';
+        return;
+    };
