@@ -128,25 +128,26 @@ document.querySelector('#clear').addEventListener('click', clear);
 
     function deposit(){
         foo.key = 'deposit';
-        foo.inputMode = false;
-        foo.operator = '';
-        foo.drawer = foo.drawer + parseFloat(foo.register);
-        foo.register = '0';
-        display.innerHTML = foo.register;
+        foo.operator = 'add';
+        foo.memory = foo.drawer;
+        foo.calculator();
+        foo.drawer = foo.memory;
+        clear();
         return;
     };
 
     function withdraw(){
         foo.key = 'withdraw';
-        foo.inputMode = false;
-        foo.operator = '';
+        foo.operator = 'subtract';
         if (parseFloat(foo.register) > foo.drawer) {
             foo.register = 'NO CAN DO';
+            display.innerHTML = foo.register;
         } else {
-            foo.drawer = foo.drawer - parseFloat(foo.register);
-            foo.register = '0';
+            foo.memory = foo.drawer;
+            foo.calculator();
+            foo.drawer = foo.memory;
+            clear();
         }
-        display.innerHTML = foo.register;
         return;
     };
     
