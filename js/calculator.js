@@ -25,23 +25,11 @@ let foo = (function () {
             }
             foo.memory = foo.memory / parseFloat(foo.register);
         }
+        if (foo.key !== 'equals') {
+            foo.operator = foo.key;
+        }
         display.innerHTML = Math.round(foo.memory * 100) / 100;
         return;
-    };
-
-    function numPad(){
-        if (foo.inputMode === false || foo.register === '0') {
-            foo.inputMode = true;
-            foo.register = foo.key;
-            display.innerHTML = foo.register;
-            return;
-        } else if (foo.register.length > 9) {
-            return;
-        } else {
-            foo.register += foo.key;
-            display.innerHTML = foo.register;
-            return;
-        }
     };
 
     return {
@@ -52,6 +40,5 @@ let foo = (function () {
         memory: memory,
         drawer: drawer,
         calculator: calculator,
-        numPad: numPad,
     };
 })();

@@ -20,57 +20,72 @@ document.querySelector('#divide').addEventListener('click', divide);
 document.querySelector('#equals').addEventListener('click', equals);
 document.querySelector('#clear').addEventListener('click', clear);
 
+function numPad(){
+    if (foo.inputMode === false || foo.register === '0') {
+        foo.inputMode = true;
+        foo.register = foo.key;
+        display.innerHTML = foo.register;
+        return;
+    } else if (foo.register.length > 9) {
+        return;
+    } else {
+        foo.register += foo.key;
+        display.innerHTML = foo.register;
+        return;
+    }
+};
+
     function one(){
         foo.key = '1';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function two(){
         foo.key = '2';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function three(){
         foo.key = '3';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function four(){
         foo.key = '4';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function five(){
         foo.key = '5';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function six(){
         foo.key = '6';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function seven(){
         foo.key = '7';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function eight(){
         foo.key = '8';
-        foo.numPad();
+        numPad();
         return;
     };
 
     function nine(){
         foo.key = '9';
-        foo.numPad();
+        numPad();
         return;
     };
 
@@ -83,7 +98,7 @@ document.querySelector('#clear').addEventListener('click', clear);
         } else {
             foo.key = '0';
         };
-        foo.numPad();
+        numPad();
         return;
     };
 
@@ -97,7 +112,7 @@ document.querySelector('#clear').addEventListener('click', clear);
         } else {
             foo.key = '00';
         };
-        foo.numPad();
+        numPad();
         return;
     };
 
@@ -113,7 +128,7 @@ document.querySelector('#clear').addEventListener('click', clear);
         } else {
             foo.key = '.';
         }
-        foo.numPad();
+        numPad();
         return;
     };
 
@@ -152,62 +167,46 @@ document.querySelector('#clear').addEventListener('click', clear);
     };
     
     function add() {
-    
-        // AFTER EQUALS
+        // AFTER EQUALS CONDITION
         if (foo.key === 'equals') {
             foo.key = 'add';
-            foo.operator = foo.key;
-            return;
+        } else {
+            foo.key = 'add';
+            foo.calculator();
         }
-    
-        foo.key = 'add';
-        foo.calculator();
-        foo.operator = foo.key;
         return;
     };
 
     function subtract() {
-
-        // AFTER EQUALS
+        // AFTER EQUALS CONDITION
         if (foo.key === 'equals') {
             foo.key = 'subtract';
-            foo.operator = foo.key;
-            return;
+        } else {
+            foo.key = 'subtract';
+            foo.calculator();
         }
-        
-        foo.key = 'subtract';
-        foo.calculator();
-        foo.operator = foo.key;
         return;
     };
     
     function multiply() {
-    
-        // AFTER EQUALS
+        // AFTER EQUALS CONDITION
         if (foo.key === 'equals') {
             foo.key = 'multiply';
-            foo.operator = foo.key;
-            return;
+        } else {
+            foo.key = 'multiply';
+            foo.calculator();
         }
-    
-        foo.key = 'multiply';
-        foo.calculator();
-        foo.operator = foo.key;
         return;
     };
 
     function divide() {
-
-        // AFTER EQUALS
+        // AFTER EQUALS CONDITION
         if (foo.key === 'equals') {
             foo.key = 'divide';
-            foo.operator = foo.key;
-            return;
+        } else {
+            foo.key = 'divide';
+            foo.calculator();
         }
-    
-        foo.key = 'divide';
-        foo.calculator();
-        foo.operator = foo.key;
         return;
     };
     
