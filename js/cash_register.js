@@ -10,11 +10,17 @@ document.querySelector('#nine').addEventListener('click', nine);
 document.querySelector('#zero').addEventListener('click', zero);
 document.querySelector('#doubleZero').addEventListener('click', doubleZero);
 document.querySelector('#decimal').addEventListener('click', decimal);
-
-// need to limit decimal places to 2
+document.querySelector('#balance').addEventListener('click', balance);
+document.querySelector('#deposit').addEventListener('click', deposit);
+document.querySelector('#withdraw').addEventListener('click', withdraw);
+document.querySelector('#add').addEventListener('click', add);
+document.querySelector('#subtract').addEventListener('click', subtract);
+document.querySelector('#multiply').addEventListener('click', multiply);
+document.querySelector('#divide').addEventListener('click', divide);
+document.querySelector('#equals').addEventListener('click', equals);
+document.querySelector('#clear').addEventListener('click', clear);
 
 //let display = (function(){
-let key = '';
 
     function numPad(){
         if (inputMode === false || register === '0') {
@@ -128,6 +134,115 @@ let key = '';
         return;
     };
 
+    function balance(){
+        key = 'balance';
+        inputMode = false;
+        operator = '';
+        memory = drawer;
+        display.innerHTML = Math.round(memory * 100) / 100;
+        return;
+    };
+
+    function deposit(){
+        key = 'deposit';
+        inputMode = false;
+        operator = '';
+        drawer = drawer + parseFloat(register);
+        register = '0';
+        display.innerHTML = register;
+        return;
+    };
+
+    function withdraw(){
+        key = 'withdraw';
+        inputMode = false;
+        operator = '';
+        if (parseFloat(register) > drawer) {
+            register = 'NO CAN DO';
+        } else {
+            drawer = drawer - parseFloat(register);
+            register = '0';
+        }
+        display.innerHTML = register;
+        return;
+    };
+
+    function clear(){
+        key = 'clear';
+        inputMode = false;
+        register = '0';
+        memory = undefined;
+        display.innerHTML = register;
+        operator = '';
+        return;
+    };
+    
+    function add() {
+    
+        // AFTER EQUALS
+        if (key === 'equals') {
+            key = 'add';
+            operator = key;
+            return;
+        }
+    
+        key = 'add';
+        calculator();
+        operator = key;
+        return;
+    };
+
+    function subtract() {
+
+        // AFTER EQUALS
+        if (key === 'equals') {
+            key = 'subtract';
+            operator = key;
+            return;
+        }
+        
+        key = 'subtract';
+        calculator();
+        operator = key;
+        return;
+    };
+    
+    function multiply() {
+    
+        // AFTER EQUALS
+        if (key === 'equals') {
+            key = 'multiply';
+            operator = key;
+            return;
+        }
+    
+        key = 'multiply';
+        calculator();
+        operator = key;
+        return;
+    };
+
+    function divide() {
+
+        // AFTER EQUALS
+        if (key === 'equals') {
+            key = 'divide';
+            operator = key;
+            return;
+        }
+    
+        key = 'divide';
+        calculator();
+        operator = key;
+        return;
+    };
+    
+    function equals() {
+        key = 'equals';
+        calculator();
+        return;
+    }
+
 //     return {
 //         one: one,
 //         two: two,
@@ -141,15 +256,15 @@ let key = '';
 //         zero: zero,
 //         doubleZero: doubleZero,
 //         decimal: decimal,
+//         balance: balance,
+//         deposit: deposit,
+//         withdraw: withdraw,
 //         add: add,
 //         subtract: subtract,
 //         multiply: multiply,
 //         divide: divide,
 //         equals: equals,
-//         clear: clear,
-//         balance: balance,
-//         deposit: deposit,
-//         withdraw: withdraw
+//         clear: clear
 //     }
 
 // })();
